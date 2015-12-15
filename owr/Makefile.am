@@ -159,7 +159,11 @@ Owr_@OWR_API_VERSION_UNDERSCORE@_gir_FILES = \
     ../local/owr_image_server.h \
     ../local/owr_image_server.c \
     ../local/owr_window_registry.h \
-    ../local/owr_window_registry.c
+    ../local/owr_window_registry.c \
+    ../local/owr_uri_source.h \
+    ../local/owr_uri_source.c \
+    ../local/owr_uri_source_agent.h \
+    ../local/owr_uri_source_agent.c
 
 INTROSPECTION_GIRS += Owr-@OWR_API_VERSION@.gir
 
