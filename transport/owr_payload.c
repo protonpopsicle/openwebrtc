@@ -445,6 +445,7 @@ GstElement * _owr_payload_create_encoder(OwrPayload *payload)
             "timebase", 1, 90000,
             "error-resilient", 1,
             "keyframe-mode", 0, /* VPX_KF_DISABLED */
+            "threads", 2,
             NULL);
 
         g_object_bind_property(payload, "bitrate", encoder, "target-bitrate", G_BINDING_SYNC_CREATE);
