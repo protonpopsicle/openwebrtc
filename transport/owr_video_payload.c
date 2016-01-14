@@ -46,6 +46,7 @@ GST_DEBUG_CATEGORY_EXTERN(_owrvideopayload_debug);
 #define DEFAULT_WIDTH 0
 #define DEFAULT_HEIGHT 0
 #define DEFAULT_FRAMERATE 0.0
+#define DEFAULT_ENCODE_THREADS 1
 #define DEFAULT_ROTATION 0
 #define DEFAULT_MIRROR FALSE
 
@@ -59,6 +60,7 @@ struct _OwrVideoPayloadPrivate {
     guint width;
     guint height;
     gdouble framerate;
+    guint encode_threads;
     gint rotation;
     gboolean mirror;
 };
@@ -72,6 +74,7 @@ enum {
     PROP_WIDTH,
     PROP_HEIGHT,
     PROP_FRAMERATE,
+    PROP_ENCODE_THREADS,
     PROP_ROTATION,
     PROP_MIRROR,
 
@@ -112,6 +115,10 @@ static void owr_video_payload_set_property(GObject *object, guint property_id, c
 
     case PROP_FRAMERATE:
         priv->framerate = g_value_get_double(value);
+        break;
+
+    case PROP_ENCODE_THREADS:
+        priv->encode_threads = g_value_get_uint(value);
         break;
 
     case PROP_ROTATION:
@@ -157,6 +164,10 @@ static void owr_video_payload_get_property(GObject *object, guint property_id, G
 
     case PROP_FRAMERATE:
         g_value_set_double(value, priv->framerate);
+        break;
+
+    case PROP_ENCODE_THREADS:
+        g_value_set_uint(value, priv->encode_threads);
         break;
 
     case PROP_ROTATION:
@@ -214,6 +225,12 @@ static void owr_video_payload_class_init(OwrVideoPayloadClass *klass)
         0.0, G_MAXDOUBLE, DEFAULT_FRAMERATE,
         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_STATIC_STRINGS);
 
+    obj_properties[PROP_ENCODE_THREADS] = g_param_spec_uint(
+	"encode-threads", "ENCODE THREADS",
+        "Number of threads used by video encoder",
+        0, G_MAXUINT, DEFAULT_ENCODE_THREADS,
+        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_STATIC_STRINGS);
+
     obj_properties[PROP_ROTATION] = g_param_spec_uint("rotation", "rotation",
         "Clockwise video rotation in multiple of 90 degrees"
         " (NOTE: currently only works for send payloads)", 0, 3, DEFAULT_ROTATION,
@@ -235,6 +252,7 @@ static void owr_video_payload_init(OwrVideoPayload *video_payload)
     video_payload->priv->width = DEFAULT_WIDTH;
     video_payload->priv->height = DEFAULT_HEIGHT;
     video_payload->priv->framerate = DEFAULT_FRAMERATE;
+    video_payload->priv->encode_threads = DEFAULT_ENCODE_THREADS;
     video_payload->priv->rotation = DEFAULT_ROTATION;
     video_payload->priv->mirror = DEFAULT_MIRROR;
 }

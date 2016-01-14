@@ -381,6 +381,8 @@ GstElement * _owr_payload_create_encoder(OwrPayload *payload)
     GstElementFactory *factory;
     const gchar *factory_name;
     gint cpu_used;
+    guint encode_threads;
+    g_object_get(payload, "encode_threads", &encode_threads, NULL);
 
     g_return_val_if_fail(payload, NULL);
 
@@ -445,7 +447,7 @@ GstElement * _owr_payload_create_encoder(OwrPayload *payload)
             "timebase", 1, 90000,
             "error-resilient", 1,
             "keyframe-mode", 0, /* VPX_KF_DISABLED */
-            "threads", 2,
+            "threads", encode_threads,
             NULL);
 
         g_object_bind_property(payload, "bitrate", encoder, "target-bitrate", G_BINDING_SYNC_CREATE);
