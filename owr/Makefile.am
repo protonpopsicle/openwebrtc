@@ -30,6 +30,7 @@ libopenwebrtc_la_SOURCES = \
     owr_inter_sink.c
 
 libopenwebrtc_la_LIBADD = \
+    $(top_builddir)/gst/libopenwebrtc_gst.la \
     $(top_builddir)/local/libopenwebrtc_local.la \
     $(top_builddir)/transport/libopenwebrtc_transport.la \
     $(OPENWEBRTC_GST_PLUGINS_LIBS) \
@@ -39,6 +40,7 @@ libopenwebrtc_la_LIBADD = \
     -lm
 
 libopenwebrtc_la_DEPENDENCIES = \
+    $(top_builddir)/gst/libopenwebrtc_gst.la \
     $(top_builddir)/local/libopenwebrtc_local.la \
     $(top_builddir)/transport/libopenwebrtc_transport.la
 
@@ -109,7 +111,8 @@ Owr_@OWR_API_VERSION_UNDERSCORE@_gir_CFLAGS = \
     $(INCLUDES) \
     -I$(top_srcdir)/owr \
     -I$(top_srcdir)/transport \
-    -I$(top_srcdir)/local
+    -I$(top_srcdir)/local \
+    -I$(top_srcdir)/gst
 Owr_@OWR_API_VERSION_UNDERSCORE@_gir_LIBS = libopenwebrtc.la
 Owr_@OWR_API_VERSION_UNDERSCORE@_gir_FILES = \
     owr.h \
@@ -163,7 +166,13 @@ Owr_@OWR_API_VERSION_UNDERSCORE@_gir_FILES = \
     ../local/owr_uri_source.h \
     ../local/owr_uri_source.c \
     ../local/owr_uri_source_agent.h \
-    ../local/owr_uri_source_agent.c
+    ../local/owr_uri_source_agent.c \
+    ../gst/owr_gst_audio_renderer.h \
+    ../gst/owr_gst_audio_renderer.c \
+    ../gst/owr_gst_media_source.h \
+    ../gst/owr_gst_media_source.c \
+    ../gst/owr_gst_video_renderer.h \
+    ../gst/owr_gst_video_renderer.c
 
 INTROSPECTION_GIRS += Owr-@OWR_API_VERSION@.gir
 

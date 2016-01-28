@@ -1,13 +1,9 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = transport local owr
+SUBDIRS = transport local gst owr
 
 if OWR_BRIDGE
 SUBDIRS += bridge
-endif
-
-if OWR_GST
-SUBDIRS += gst
 endif
 
 SUBDIRS += docs

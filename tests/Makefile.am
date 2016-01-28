@@ -25,7 +25,6 @@ bin_PROGRAMS = \
     test-client \
     test-crypto-utils
 
-if OWR_GST
 AM_CPPFLAGS += \
     -I$(top_srcdir)/gst
 bin_PROGRAMS += \
@@ -43,7 +42,6 @@ test_gst_io_LDADD = \
     $(GLIB_LIBS) \
     $(top_builddir)/owr/libopenwebrtc.la \
     $(top_builddir)/gst/libopenwebrtc_gst.la
-endif
 
 list_devices_SOURCES = list_devices.c
 

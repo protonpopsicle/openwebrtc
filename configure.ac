@@ -120,27 +120,6 @@ fi
 AC_SUBST(GST_STATIC_PLUGINS_DIR)
 AM_CONDITIONAL(OWR_STATIC, test x$enable_owr_static = xyes)
 
-dnl build GStreamer library or not
-AC_MSG_CHECKING([whether to build owr-gst or not])
-AC_ARG_ENABLE(owr-gst,
-AC_HELP_STRING(
-  [--enable-owr-gst],
-  [Enable owr-gst @<:@default=no@:>@]),
-[case "${enableval}" in
-  yes) enable_owr_gst=yes ;;
-  no)  enable_owr_gst=no ;;
-  *) AC_MSG_ERROR(bad value ${enableval} for --enable-owr-gst) ;;
-esac],[enable_owr_gst=no])
-AC_MSG_RESULT([$enable_owr_gst])
-if test "x$enable_owr_gst" = xyes; then
-  if test x$enable_owr_static = xyes; then
-    AC_MSG_ERROR(owr-gst is not supported with owr-static)
-  fi
-  AC_DEFINE(OWR_GST, 1,
-  [Define if building owr-gst])
-fi
-AM_CONDITIONAL(OWR_GST, test x$enable_owr_gst = xyes)
-
 dnl pick dependencies and build flags based on OS
 case "$host_os" in
   darwin*)
@@ -309,7 +288,6 @@ bridge/seed/Makefile
 bridge/shared/Makefile
 bridge/worker/Makefile
 gst/Makefile
-gst/openwebrtc-gst-$OWR_API_VERSION.pc
 owr/Makefile
 owr/openwebrtc-$OWR_API_VERSION.pc
 transport/Makefile
